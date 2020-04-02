@@ -62,9 +62,26 @@ namespace MesseNGoat
 
         }
 
-        private void buttonConnexion_Click(object sender, EventArgs e)
+        private void connexionToServeurButton_Click(object sender, EventArgs e)
         {
-            _client = new Client(textBoxIP.Text, Convert.ToInt32(textBoxPort.Text));
+            // TODO : gérer les exceptions, ptetre mettre un message d'erreur etc...
+            try
+            {
+                _client = new Client(textBoxIP.Text, Convert.ToInt32(textBoxPort.Text));
+            }
+            catch (Exception exception)
+            {
+
+            }
+            finally
+            {
+                // TODO : modifier le finally car la il est configuré seulement pour tester le changement de pannel
+                Connexion.Hide();
+
+                this.Size = new Size(650, 241);
+                UserConnexion.Location = new Point(5, 5);
+                UserConnexion.Show();
+            }
         }
 
         private void buttonForSending_Click(object sender, EventArgs e)
@@ -90,6 +107,68 @@ namespace MesseNGoat
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void MesseNGoat_Load(object sender, EventArgs e)
+        {
+            this.Size = new Size(428, 241);
+            Connexion.Location = new Point(5, 5);
+
+            UserConnexion.Hide();
+            ChatBox.Hide();
+            SaveLogin.Hide();
+        }
+
+        private void userConnexionButton_Click(object sender, EventArgs e)
+        {
+            // TODO : gérer les exceptions, ptetre mettre un message d'erreur etc...
+            UserConnexion.Hide();
+            
+            this.Size = new Size(750, 350);
+            ChatBox.Location = new Point(5, 5);
+            ChatBox.Show();
+        }
+
+        private void disconnectFromServerButton_Click(object sender, EventArgs e)
+        {
+            // TODO : gérer les exceptions, ptetre mettre un message d'erreur etc...
+
+            UserConnexion.Hide();
+
+            this.Size = new Size(428, 241);
+            Connexion.Location = new Point(5, 5);
+            Connexion.Show();
+            
+        }
+
+        private void logOutButton_Click(object sender, EventArgs e)
+        {
+            // TODO : gérer les exceptions, ptetre mettre un message d'erreur etc...
+            ChatBox.Hide();
+
+            this.Size = new Size(650, 241);
+            UserConnexion.Location = new Point(5, 5);
+            UserConnexion.Show();
+        }
+
+        private void newUserButton_Click(object sender, EventArgs e)
+        {
+            // TODO : gérer les exceptions, ptetre mettre un message d'erreur etc...
+            UserConnexion.Hide();
+
+            this.Size = new Size(325, 360);
+            SaveLogin.Location = new Point(5, 5);
+            SaveLogin.Show();
+        }
+
+        private void returnToUserConnexion_Click(object sender, EventArgs e)
+        {
+            // TODO : gérer les exceptions, ptetre mettre un message d'erreur etc...
+            SaveLogin.Hide();
+
+            this.Size = new Size(650, 241);
+            UserConnexion.Location = new Point(5, 5);
+            UserConnexion.Show();
         }
     }
 }
