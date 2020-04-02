@@ -108,7 +108,7 @@
             this.conditionsUtilisation.Size = new System.Drawing.Size(231, 17);
             this.conditionsUtilisation.TabIndex = 6;
             this.conditionsUtilisation.TabStop = true;
-            this.conditionsUtilisation.Text = "J\'ai lu et accépté les conditions d\'utilisations";
+            this.conditionsUtilisation.Text = "J\'ai lu et accepté les conditions d\'utilisations";
             this.conditionsUtilisation.UseVisualStyleBackColor = true;
             // 
             // accountCreationButton
@@ -233,7 +233,7 @@
             this.ChatBox.Controls.Add(this.buttonForSending);
             this.ChatBox.Location = new System.Drawing.Point(7, 219);
             this.ChatBox.Name = "ChatBox";
-            this.ChatBox.Size = new System.Drawing.Size(728, 370);
+            this.ChatBox.Size = new System.Drawing.Size(727, 274);
             this.ChatBox.TabIndex = 2;
             // 
             // logOutButton
@@ -360,7 +360,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1097, 602);
+            this.ClientSize = new System.Drawing.Size(1057, 564);
             this.Controls.Add(this.Connexion);
             this.Controls.Add(this.ChatBox);
             this.Controls.Add(this.UserConnexion);
