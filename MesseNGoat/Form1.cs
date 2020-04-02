@@ -45,7 +45,7 @@ namespace MesseNGoat
 
             var indexbackimage = DateTime.Now.Second % lisimage.Count;
             Connexion.BackgroundImage = lisimage[indexbackimage];
-            LoginResult.BackgroundImage = lisimage[indexbackimage];
+            UserConnexion.BackgroundImage = lisimage[indexbackimage];
             SaveLogin.BackgroundImage = lisimage[indexbackimage];
             ChatBox.BackgroundImage = lisimage[indexbackimage];
         }
@@ -85,6 +85,11 @@ namespace MesseNGoat
             labelretourServeur.Text = "reçu";
             richTextBoxConversation.Text += accuseRecep;
             
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
