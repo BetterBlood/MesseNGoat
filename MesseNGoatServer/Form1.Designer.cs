@@ -54,12 +54,12 @@
             // labelIsConnected
             // 
             this.labelIsConnected.AutoSize = true;
-            this.labelIsConnected.ForeColor = System.Drawing.Color.Red;
-            this.labelIsConnected.Location = new System.Drawing.Point(349, 57);
+            this.labelIsConnected.ForeColor = System.Drawing.Color.Black;
+            this.labelIsConnected.Location = new System.Drawing.Point(326, 52);
             this.labelIsConnected.Name = "labelIsConnected";
-            this.labelIsConnected.Size = new System.Drawing.Size(10, 13);
+            this.labelIsConnected.Size = new System.Drawing.Size(76, 13);
             this.labelIsConnected.TabIndex = 6;
-            this.labelIsConnected.Text = " ";
+            this.labelIsConnected.Text = " Disconnected";
             // 
             // richTextBoxCommunications
             // 

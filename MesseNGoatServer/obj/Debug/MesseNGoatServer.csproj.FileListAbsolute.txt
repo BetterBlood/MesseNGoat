@@ -19,3 +19,14 @@ G:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\Mess
 G:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.pdb
 G:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.Server.resources
 G:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.csproj.CoreCompileInputs.cache
+H:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\bin\Debug\MesseNGoatServer.exe.config
+H:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\bin\Debug\MesseNGoatServer.exe
+H:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\bin\Debug\MesseNGoatServer.pdb
+H:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.csprojAssemblyReference.cache
+H:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.Form1.resources
+H:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.Properties.Resources.resources
+H:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.Server.resources
+H:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.csproj.GenerateResource.cache
+H:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.csproj.CoreCompileInputs.cache
+H:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.exe
+H:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.pdb

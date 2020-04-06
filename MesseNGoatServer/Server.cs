@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net;
 using System.Net.Sockets;
+using System.Net;
 using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
@@ -15,7 +15,6 @@ namespace MesseNGoatServer
     {
         IPAddress[] _iPServer;
         private string _iPRunning;
-        private const int _ipv4index = 5;
         string _message;
         int _port;
 
@@ -31,17 +30,8 @@ namespace MesseNGoatServer
             
             _iPServer = Dns.GetHostAddresses(Dns.GetHostName()); // récupère l'adresse ip de la machine sur laquel est lancé le serveur
 
-            if(_iPServer.Length > _ipv4index)
-            {
-                _iPRunning = _iPServer[_ipv4index].ToString(); // _iPRunning = _iPServer[_ipv4index].ToString();
-                _tCPListener = new TcpListener(_iPServer[_ipv4index], _port); // _iPServer[_ipv4index]
-            }
-            else
-            {
-                _iPRunning = _iPServer[1].ToString();
-                _tCPListener = new TcpListener(_iPServer[1], _port);
-                //Console.WriteLine("problème d'ip");
-            }
+            _iPRunning = _iPServer[FindIPV4()].ToString();
+            _tCPListener = new TcpListener(_iPServer[FindIPV4()], _port);
 
             InitByte();
             InitializeComponent();
@@ -51,6 +41,24 @@ namespace MesseNGoatServer
         {
             _data = new byte[1500];
             _message = "";
+        }
+
+        private int FindIPV4()
+        {
+            int index = 0;
+
+            foreach (IPAddress ip in _iPServer)
+            {
+                string tmp = ip.ToString();
+
+                if (tmp.Split('.').Length == 4)
+                {
+                    break;
+                }
+                index++;
+            }
+
+            return index;
         }
 
         public string GetIP()
@@ -79,8 +87,8 @@ namespace MesseNGoatServer
             {
                 a_textBox.Text += a_messageForTextBox + "\n";
             }
-
             a_form.Update();
+            a_label.ForeColor = Color.Black;
         }
 
         public void TryToConnect(Form1 a_form, Label a_label, RichTextBox a_textBox) // Label a_label, RichTextBox a_textBox
@@ -147,16 +155,21 @@ namespace MesseNGoatServer
             this.checkBox1.TabIndex = 0;
             this.checkBox1.Text = "checkBox1";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // Server
             // 
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(723, 458);
             this.Controls.Add(this.checkBox1);
             this.Name = "Server";
-            this.ResumeLayout(true);
+            this.ResumeLayout(false);
             this.PerformLayout();
-            Show();
-            Hide();
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

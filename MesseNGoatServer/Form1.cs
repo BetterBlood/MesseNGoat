@@ -14,7 +14,9 @@ namespace MesseNGoatServer
     public partial class Form1 : Form
     {
         Server _server;
-        // Thread _threadListener; // ça ne marche pas je sais pas pk....
+
+        // ptetre faire une liste ? jsp
+        Thread _threadListener; // ça ne marche pas je sais pas pk.... en fait ça marche, ptetre j'avais pas compillé le code
         public Form1()
         {
             InitializeComponent();
@@ -25,10 +27,15 @@ namespace MesseNGoatServer
 
         private void buttonSetUpServer_Click(object sender, EventArgs e)
         {
+            labelIsConnected.ForeColor = Color.Red;
             labelIsConnected.Text = "Connecting...";
-            Thread _threadListener = new Thread(new ThreadStart(TryToConnect));
-            _threadListener.Name = "test";
-            _threadListener.Start();
+
+            // TODO : vérifier si le thread est utile ici (j'ai pas compris à quoi ça sert un thread je crois....)
+            //_threadListener = new Thread(new ThreadStart(TryToConnect));
+            //_threadListener.Name = "test";
+            //_threadListener.Start();
+
+            TryToConnect();
         }
         
         private void TryToConnect()
@@ -38,7 +45,10 @@ namespace MesseNGoatServer
 
         private void buttonToShutDown_Click(object sender, EventArgs e)
         {
-            labelIsConnected.Text = "ButtonClick";
+            labelIsConnected.Text = "Disconnected";
+            labelIsConnected.ForeColor = Color.Black;
+            _threadListener.Abort();
+            _server.Close();
         }
     }
 }
