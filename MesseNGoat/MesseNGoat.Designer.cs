@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.SaveLogin = new System.Windows.Forms.Panel();
             this.userMdpCreationBox = new System.Windows.Forms.TextBox();
             this.mdpPower = new System.Windows.Forms.Label();
@@ -62,7 +61,6 @@
             this.textBoxIP = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.IPServeur = new System.Windows.Forms.Label();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.SaveLogin.SuspendLayout();
             this.UserConnexion.SuspendLayout();
             this.ChatBox.SuspendLayout();
@@ -386,11 +384,6 @@
             this.IPServeur.Text = "IP Serveur";
             this.IPServeur.Click += new System.EventHandler(this.IPServeur_Click);
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
-            // 
             // MesseNGoat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -447,7 +440,6 @@
         private System.Windows.Forms.Label mdpPower;
         private System.Windows.Forms.TextBox userMdpCreationBox;
         private System.Windows.Forms.TextBox userMdpTextBox;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.Button quickConnexionToServeurButton;
         private System.Windows.Forms.Label portServerDefaultLabel;
         private System.Windows.Forms.Label ipServeurDefaultLabel;

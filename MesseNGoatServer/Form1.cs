@@ -16,26 +16,25 @@ namespace MesseNGoatServer
         Server _server;
 
         // ptetre faire une liste ? jsp
-        Thread _threadListener; // ça ne marche pas je sais pas pk.... en fait ça marche, ptetre j'avais pas compillé le code
+        Thread _threadListener;
+
         public Form1()
         {
             InitializeComponent();
+            labelServerPort.Text = "32123"; // TODO : ptetre mettre ça en textBox pour entrer le port soit-même
 
-            _server = new Server(32123);
-            labelServeurIP.Text = _server.GetIP();
+            _server = new Server(Convert.ToInt32(labelServerPort.Text));
+            labelServerIP.Text = _server.GetIP();
         }
 
         private void buttonSetUpServer_Click(object sender, EventArgs e)
         {
-            labelIsConnected.ForeColor = Color.Red;
-            labelIsConnected.Text = "Connecting...";
-
             // TODO : vérifier si le thread est utile ici (j'ai pas compris à quoi ça sert un thread je crois....)
-            //_threadListener = new Thread(new ThreadStart(TryToConnect));
-            //_threadListener.Name = "test";
-            //_threadListener.Start();
+            _threadListener = new Thread(new ThreadStart(TryToConnect));
+            _threadListener.Name = "test";
+            _threadListener.Start();
 
-            TryToConnect();
+            //TryToConnect();
         }
         
         private void TryToConnect()
@@ -47,8 +46,14 @@ namespace MesseNGoatServer
         {
             labelIsConnected.Text = "Disconnected";
             labelIsConnected.ForeColor = Color.Black;
-            _threadListener.Abort();
-            _server.Close();
+            _server.TryToDisconnect();
+
+            if (_threadListener != null)
+            {
+                _threadListener.Abort();
+            }
+
+            Application.Exit();
         }
     }
 }
