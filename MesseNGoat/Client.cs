@@ -11,6 +11,9 @@ namespace MesseNGoat
 {
     class Client
     {
+        IPAddress[] _iPAppli;
+        private string _iPRunning;
+
         string _serveurIP;
         string _message;
         int _port;
@@ -24,16 +27,46 @@ namespace MesseNGoat
             _serveurIP = a_serveurIP;
             _port = a_port;
 
+            //_tCPClient = new TcpClient("192.168.56.1", 32123);
             _tCPClient = new TcpClient(_serveurIP, _port);
+            //Console.Beep();
             _stream = _tCPClient.GetStream();
+            //Console.Beep();
+            
+            _iPAppli = Dns.GetHostAddresses(Dns.GetHostName()); // récupère les adresses ip de la machine sur laquel est lancé l'application client
+            _iPRunning = _iPAppli[FindIPV4()].ToString();
         }
 
         public void SendMessage(string a_messageToSend)
         {
             //TODO : voir pour appeler la fonction d'encodage
-            _message = a_messageToSend; // TODO : voir si c'est utile de stoquer le message
+            string destination = _serveurIP;
+            _message = _iPRunning + "/" + destination + "/" + a_messageToSend; // TODO : voir si c'est utile de stoquer le message
             _data = Encoding.ASCII.GetBytes(_message);
             _stream.Write(_data, 0, _data.Length);
+        }
+
+        /// <summary>
+        /// renvoie la première adresse ipv4 trouvée, si pas d'IPV4, renvoie -1
+        /// </summary>
+        /// <returns></returns>
+        private int FindIPV4()
+        {
+            int index = 0;
+            bool find = false;
+
+            foreach (IPAddress ip in _iPAppli)
+            {
+                string tmp = ip.ToString();
+
+                if (tmp.Split('.').Length == 4)
+                {
+                    find = true;
+                    break;
+                }
+                index++;
+            }
+            return find ? index : -1;
         }
 
         public string TestStreamReception()
@@ -50,5 +83,14 @@ namespace MesseNGoat
             _tCPClient.Close();
         }
 
+        public string GetIP()
+        {
+            return _iPRunning;
+        }
+
+        public string GetServerIP()
+        {
+            return _serveurIP;
+        }
     }
 }

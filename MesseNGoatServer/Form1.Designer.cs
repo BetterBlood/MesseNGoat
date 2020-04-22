@@ -32,18 +32,22 @@
             this.labelIsConnected = new System.Windows.Forms.Label();
             this.richTextBoxCommunications = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.labelServeurIP = new System.Windows.Forms.Label();
+            this.labelServerIP = new System.Windows.Forms.Label();
             this.buttonToShutDown = new System.Windows.Forms.Button();
             this.buttonSetUpServer = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.labelServerPort = new System.Windows.Forms.Label();
             this.ServConv.SuspendLayout();
             this.SuspendLayout();
             // 
             // ServConv
             // 
+            this.ServConv.Controls.Add(this.labelServerPort);
+            this.ServConv.Controls.Add(this.label2);
             this.ServConv.Controls.Add(this.labelIsConnected);
             this.ServConv.Controls.Add(this.richTextBoxCommunications);
             this.ServConv.Controls.Add(this.label1);
-            this.ServConv.Controls.Add(this.labelServeurIP);
+            this.ServConv.Controls.Add(this.labelServerIP);
             this.ServConv.Controls.Add(this.buttonToShutDown);
             this.ServConv.Controls.Add(this.buttonSetUpServer);
             this.ServConv.Location = new System.Drawing.Point(65, 48);
@@ -80,12 +84,12 @@
             // 
             // labelServeurIP
             // 
-            this.labelServeurIP.AutoSize = true;
-            this.labelServeurIP.Location = new System.Drawing.Point(120, 31);
-            this.labelServeurIP.Name = "labelServeurIP";
-            this.labelServeurIP.Size = new System.Drawing.Size(35, 13);
-            this.labelServeurIP.TabIndex = 2;
-            this.labelServeurIP.Text = "label1";
+            this.labelServerIP.AutoSize = true;
+            this.labelServerIP.Location = new System.Drawing.Point(142, 31);
+            this.labelServerIP.Name = "labelServeurIP";
+            this.labelServerIP.Size = new System.Drawing.Size(35, 13);
+            this.labelServerIP.TabIndex = 2;
+            this.labelServerIP.Text = "";
             // 
             // buttonToShutDown
             // 
@@ -107,6 +111,24 @@
             this.buttonSetUpServer.UseVisualStyleBackColor = true;
             this.buttonSetUpServer.Click += new System.EventHandler(this.buttonSetUpServer_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(51, 61);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(72, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Port Serveur :";
+            // 
+            // labelServerPort
+            // 
+            this.labelServerPort.AutoSize = true;
+            this.labelServerPort.Location = new System.Drawing.Point(142, 61);
+            this.labelServerPort.Name = "labelServerPort";
+            this.labelServerPort.Size = new System.Drawing.Size(37, 13);
+            this.labelServerPort.TabIndex = 8;
+            this.labelServerPort.Text = "32123";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -114,7 +136,7 @@
             this.ClientSize = new System.Drawing.Size(594, 357);
             this.Controls.Add(this.ServConv);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Server MesseNGoat";
             this.ServConv.ResumeLayout(false);
             this.ServConv.PerformLayout();
             this.ResumeLayout(false);
@@ -126,10 +148,12 @@
         private System.Windows.Forms.Panel ServConv;
         private System.Windows.Forms.RichTextBox richTextBoxCommunications;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label labelServeurIP;
+        private System.Windows.Forms.Label labelServerIP;
         private System.Windows.Forms.Button buttonToShutDown;
         private System.Windows.Forms.Button buttonSetUpServer;
         private System.Windows.Forms.Label labelIsConnected;
+        private System.Windows.Forms.Label labelServerPort;
+        private System.Windows.Forms.Label label2;
     }
 }
 

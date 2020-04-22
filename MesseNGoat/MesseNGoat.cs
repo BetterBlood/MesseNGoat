@@ -76,7 +76,7 @@ namespace MesseNGoat
 
         private void Connexion_Paint(object sender, PaintEventArgs e)
         {
-
+            // TODO : aucune idée de ce que c'est !!!!
         }
 
         private void connexionToServeurButton_Click(object sender, EventArgs e)
@@ -93,17 +93,12 @@ namespace MesseNGoat
             }
             catch (Exception exception)
             {
-                MessageBox.Show("Erreur, le serveur (ou le port) mentionné n'est pas atteignable\n\n" + exception.Message + "\n\nVeuillez vérifier les données puis réessayer", "Connexion Failed");
+                MessageBox.Show("Erreur, le serveur (ou le port) mentionné n'est pas atteignable : \n\n[ " + exception.GetType() + " : " + exception.Message + " ]\n\nVeuillez vérifier les données puis réessayer", "Connexion Failed");
             }
             finally
             {
                 // TODO : modifier le finally car la il est configuré seulement pour tester le changement de pannel
 
-                //Connexion.Hide();
-
-                //this.Size = new Size(650, 241);
-                //UserConnexion.Location = new Point(5, 5);
-                //UserConnexion.Show();
                 new SoundPlayer("..//..//Sounds//IntroSpicyInvaders.wav").Play();
             }
         }
@@ -121,7 +116,7 @@ namespace MesseNGoat
             }
             catch (Exception exception)
             {
-                MessageBox.Show("Erreur, le serveur (ou le port) mentionné n'est pas atteignable\n\n" + exception.Message + "\n\nVeuillez vérifier que le serveur à bien été démaré", "Connexion Failed");
+                MessageBox.Show("Erreur, le serveur (ou le port) mentionné n'est pas atteignable\n\n[ " + exception.GetType() + " : " + exception.Message + " ]\n\nVeuillez vérifier que le serveur à bien été démaré", "Connexion Failed");
             }
             finally
             {
@@ -142,15 +137,18 @@ namespace MesseNGoat
             }
             catch (Exception exception)
             {
-                accuseRecep = exception.Message;
+                accuseRecep = exception.Message +"\n";
+                MessageBox.Show("Connection Lost : \n\nVeuillez vérifier que le serveur n'a pas été déconnecté", "Connexion Lost");
                 Size = new Size(428, 241);
                 Connexion.Location = new Point(5, 5);
 
                 UserConnexion.Hide();
                 ChatBox.Hide();
                 SaveLogin.Hide();
+
+                Connexion.Show();
             }
-            
+
             labelretourServeur.Text = "reçu";
             richTextBoxConversation.Text += accuseRecep;
             
@@ -158,18 +156,44 @@ namespace MesseNGoat
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
-
+            // TODO : je crois que c'est pour tester si on peu masquer le mot de passe quand il est tapé pour ne pas l'afficher
         }
 
         private void userConnexionButton_Click(object sender, EventArgs e)
         {
             // TODO : gérer les exceptions, ptetre mettre un message d'erreur etc...
 
-            UserConnexion.Hide();
+            // envoyer une requette au serveur pour voir si la personne peut se connecter, si oui on continue sinon meddage d'erreur
+            string accuseRecep = "";
+
+            try
+            {
+                _client.SendMessage(userPseudoTestBox.Text + "/" + userMdpTextBox.Text); // TODO : ne pas oublié de crypter les infos !!!!
+                accuseRecep = _client.TestStreamReception() + "\n";
+            }
+            catch (Exception exception)
+            {
+                accuseRecep = exception.Message + "\n";
+            }
+
+            if (accuseRecep.Equals("goodID\n"))
+            {
+                UserConnexion.Hide();
             
-            this.Size = new Size(750, 350);
-            ChatBox.Location = new Point(5, 5);
-            ChatBox.Show();
+                this.Size = new Size(750, 350);
+                ChatBox.Location = new Point(5, 5);
+                ChatBox.Show();
+            }
+            else if (accuseRecep.Equals("badID"))
+            {
+                MessageBox.Show("Les identifiants entrés sont invalides", "identifiant invalide");
+            }
+            else
+            {
+                MessageBox.Show("Un problème est survenu lors de la requete, merci de le signaler au SAV : " + accuseRecep, "Connexion Issue");
+            }
+
+            
         }
 
         private void disconnectFromServerButton_Click(object sender, EventArgs e)
@@ -188,11 +212,22 @@ namespace MesseNGoat
         {
             // TODO : gérer les exceptions, ptetre mettre un message d'erreur etc...
 
-            ChatBox.Hide();
+            string accuseRecep = "";
 
-            this.Size = new Size(650, 241);
-            UserConnexion.Location = new Point(5, 5);
-            UserConnexion.Show();
+            try
+            {
+                _client.SendMessage("requestToLogOut"); // TODO : ne pas oublié de crypter les infos !!!!
+                ChatBox.Hide();
+
+                this.Size = new Size(650, 241);
+                UserConnexion.Location = new Point(5, 5);
+                UserConnexion.Show();
+            }
+            catch (Exception exception)
+            {
+                accuseRecep = exception.Message + "\n";
+                MessageBox.Show("Erreur inconnue : " + accuseRecep, "Unknown Error");
+            }
         }
 
         private void newUserButton_Click(object sender, EventArgs e)
