@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using System.IO;
 
 namespace MesseNGoatServer
 {
@@ -15,8 +16,10 @@ namespace MesseNGoatServer
     {
         Server _server;
 
-        // ptetre faire une liste ? jsp
+        // ptetre faire une liste ? jsp // ou bien une liste de server idk
         Thread _threadListener;
+
+        public static readonly string PATH_USERS = Path.GetFullPath("Users.txt");
 
         public Form1()
         {
@@ -25,6 +28,9 @@ namespace MesseNGoatServer
 
             _server = new Server(Convert.ToInt32(labelServerPort.Text));
             labelServerIP.Text = _server.GetIP();
+
+            //string users = File.ReadAllText(PATH_USERS);
+            //File.WriteAllText(PATH_SLOT_2, a_game.GetSaveStat());
         }
 
         private void buttonSetUpServer_Click(object sender, EventArgs e)

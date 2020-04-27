@@ -17,6 +17,9 @@ namespace MesseNGoat
         Client _client;
         test2 frm2;
 
+        string _pseudo;
+        string _users;
+
         public MesseNGoat()
         {
             InitializeComponent();
@@ -26,6 +29,8 @@ namespace MesseNGoat
             //timer.Tick += new EventHandler(timer_Tick);
             //timer.Start();
             frm2 = new test2(this);
+            _pseudo = "";
+            _users = "";
         }
 
         private void MesseNGoat_Load(object sender, EventArgs e)
@@ -132,7 +137,30 @@ namespace MesseNGoat
 
             try
             {
-                _client.SendMessage(messageAEnvoyer.Text);
+                string destinataire = destinationTextBox.Text;
+
+                string[] users = _users.Split('\n');
+
+                int destinationIndice = 0;
+                int verification = 0;
+
+                foreach(string user in users)
+                {
+                    destinationIndice++;
+
+                    if (user.Equals(destinataire))
+                    {
+                        break;
+                    }
+                    verification++;
+                }
+
+                if (destinationIndice == verification)
+                {
+                    destinationIndice = 0; // on reset à 0 car l'utilisateur n'a pas été trouvé
+                }
+
+                _client.SendMessage(messageAEnvoyer.Text, destinationIndice);
                 accuseRecep = _client.TestStreamReception() + "\n";
             }
             catch (Exception exception)
@@ -149,7 +177,6 @@ namespace MesseNGoat
                 Connexion.Show();
             }
 
-            labelretourServeur.Text = "reçu";
             richTextBoxConversation.Text += accuseRecep;
             
         }
@@ -163,12 +190,12 @@ namespace MesseNGoat
         {
             // TODO : gérer les exceptions, ptetre mettre un message d'erreur etc...
 
-            // envoyer une requette au serveur pour voir si la personne peut se connecter, si oui on continue sinon meddage d'erreur
+            // envoyer une requette au serveur pour voir si la personne peut se connecter, si oui on continue sinon message d'erreur
             string accuseRecep = "";
 
             try
             {
-                _client.SendMessage(userPseudoTestBox.Text + "/" + userMdpTextBox.Text); // TODO : ne pas oublié de crypter les infos !!!!
+                _client.SendMessage(userPseudoTestBox.Text + "/" + userMdpTextBox.Text + "/connection"); // TODO : ne pas oublié de crypter les infos !!!!
                 accuseRecep = _client.TestStreamReception() + "\n";
             }
             catch (Exception exception)
@@ -176,15 +203,34 @@ namespace MesseNGoat
                 accuseRecep = exception.Message + "\n";
             }
 
-            if (accuseRecep.Equals("goodID\n"))
+            string[] accuseRecepSplit = accuseRecep.Split('/');
+
+            if (accuseRecepSplit[0].Equals("goodID"))
             {
+                _pseudo = userPseudoTestBox.Text;
+                affichagePseudo.Text = _pseudo;
+
+                _users = "";
+                bool pop = true;
+
+                foreach (string user in accuseRecepSplit)
+                {
+                    if (!pop)
+                    {
+                        _users += user + "\n";
+                    }
+                    pop = false;
+                }
+                
+                destinationPossibility.Text = "" + _users;
+
                 UserConnexion.Hide();
             
                 this.Size = new Size(750, 350);
                 ChatBox.Location = new Point(5, 5);
                 ChatBox.Show();
             }
-            else if (accuseRecep.Equals("badID"))
+            else if (accuseRecepSplit[0].Equals("badID"))
             {
                 MessageBox.Show("Les identifiants entrés sont invalides", "identifiant invalide");
             }
@@ -192,8 +238,6 @@ namespace MesseNGoat
             {
                 MessageBox.Show("Un problème est survenu lors de la requete, merci de le signaler au SAV : " + accuseRecep, "Connexion Issue");
             }
-
-            
         }
 
         private void disconnectFromServerButton_Click(object sender, EventArgs e)
@@ -217,6 +261,7 @@ namespace MesseNGoat
             try
             {
                 _client.SendMessage("requestToLogOut"); // TODO : ne pas oublié de crypter les infos !!!!
+                _pseudo = "";
                 ChatBox.Hide();
 
                 this.Size = new Size(650, 241);
@@ -258,6 +303,60 @@ namespace MesseNGoat
             threadTest.Name = "testMusique";
             threadTest.Start("..//..//Sounds//EnnemyDeath.wav");
             //Invoke(new Action<string>(PlaySound), "..//..//Sounds//EnnemyDeath.wav");
+        }
+
+        private void accountCreationButton_Click(object sender, EventArgs e)
+        {
+            // envoyer une requette au serveur pour créer un utilisateur
+            // si le nom d'utilisateur n'est pas pris => on vérifie que le nom d'utilisateur et le mot de passe ne contiennent pas de "/" => (tous ça dans la partie server)
+            // si le serveur nous dit que c'est bon on retourne a la page de connexion, sinon on envoie un message d'erreure comme quoi les informations sont incorrectes
+
+            string accuseRecep = "";
+
+            try
+            {
+                if (conditionsUtilisation.Checked)
+                {
+                    if (userNameCreationbox.Text.Length < 5 || userMdpCreationBox.Text.Length < 8)
+                    {
+                        throw new Exception("nom d'utilisateur ou mot de passe trop court !");
+                    }
+
+                    if (!userNameCreationbox.Text.Contains("/") && !userMdpCreationBox.Text.Contains("/"))
+                    {
+                        _client.SendMessage(userNameCreationbox.Text + "/" + userMdpCreationBox.Text + "/newUser"); // TODO : ne pas oublié de crypter les infos !!!!
+                    }
+                    else
+                    {
+                        MessageBox.Show("Les identifiants entrés ne peuvent pas être validés, le symbole '/' est interdit. Veuillez vous assurer que vous ne l'avez pas utilisé", "nom d'utilisateur ou mdp invalide");
+                    }
+                }
+                
+                accuseRecep = _client.TestStreamReception() + "\n";
+            }
+            catch (Exception exception)
+            {
+                accuseRecep = exception.Message + "\n";
+            }
+
+            string[] accuseRecepSplit = accuseRecep.Split('/');
+
+            if (accuseRecepSplit[0].Equals("goodID")) // récupérer la liste des utilisateurs
+            {
+                SaveLogin.Hide();
+
+                this.Size = new Size(650, 241);
+                UserConnexion.Location = new Point(5, 5);
+                UserConnexion.Show();
+            }
+            else if (accuseRecepSplit[0].Equals("badID"))
+            {
+                MessageBox.Show("Les identifiants entrés ne peuvent pas être validés", "utilisateur déjà existant");
+            }
+            else
+            {
+                MessageBox.Show("Un problème est survenu lors de la requete, merci de le signaler au SAV : " + accuseRecep, "Connexion Issue");
+            }
         }
     }
 }

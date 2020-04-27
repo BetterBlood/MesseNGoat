@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.ServConv = new System.Windows.Forms.Panel();
+            this.labelServerPort = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.labelIsConnected = new System.Windows.Forms.Label();
             this.richTextBoxCommunications = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.labelServerIP = new System.Windows.Forms.Label();
             this.buttonToShutDown = new System.Windows.Forms.Button();
             this.buttonSetUpServer = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.labelServerPort = new System.Windows.Forms.Label();
             this.ServConv.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,6 +55,24 @@
             this.ServConv.Size = new System.Drawing.Size(437, 225);
             this.ServConv.TabIndex = 0;
             // 
+            // labelServerPort
+            // 
+            this.labelServerPort.AutoSize = true;
+            this.labelServerPort.Location = new System.Drawing.Point(142, 61);
+            this.labelServerPort.Name = "labelServerPort";
+            this.labelServerPort.Size = new System.Drawing.Size(37, 13);
+            this.labelServerPort.TabIndex = 8;
+            this.labelServerPort.Text = "32123";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(51, 61);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(72, 13);
+            this.label2.TabIndex = 7;
+            this.label2.Text = "Port Serveur :";
+            // 
             // labelIsConnected
             // 
             this.labelIsConnected.AutoSize = true;
@@ -69,6 +87,7 @@
             // 
             this.richTextBoxCommunications.Location = new System.Drawing.Point(32, 112);
             this.richTextBoxCommunications.Name = "richTextBoxCommunications";
+            this.richTextBoxCommunications.ReadOnly = true;
             this.richTextBoxCommunications.Size = new System.Drawing.Size(370, 96);
             this.richTextBoxCommunications.TabIndex = 5;
             this.richTextBoxCommunications.Text = "";
@@ -82,14 +101,13 @@
             this.label1.TabIndex = 3;
             this.label1.Text = "IP Serveur :";
             // 
-            // labelServeurIP
+            // labelServerIP
             // 
             this.labelServerIP.AutoSize = true;
             this.labelServerIP.Location = new System.Drawing.Point(142, 31);
-            this.labelServerIP.Name = "labelServeurIP";
-            this.labelServerIP.Size = new System.Drawing.Size(35, 13);
+            this.labelServerIP.Name = "labelServerIP";
+            this.labelServerIP.Size = new System.Drawing.Size(0, 13);
             this.labelServerIP.TabIndex = 2;
-            this.labelServerIP.Text = "";
             // 
             // buttonToShutDown
             // 
@@ -110,24 +128,6 @@
             this.buttonSetUpServer.Text = "Start";
             this.buttonSetUpServer.UseVisualStyleBackColor = true;
             this.buttonSetUpServer.Click += new System.EventHandler(this.buttonSetUpServer_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(51, 61);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(72, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Port Serveur :";
-            // 
-            // labelServerPort
-            // 
-            this.labelServerPort.AutoSize = true;
-            this.labelServerPort.Location = new System.Drawing.Point(142, 61);
-            this.labelServerPort.Name = "labelServerPort";
-            this.labelServerPort.Size = new System.Drawing.Size(37, 13);
-            this.labelServerPort.TabIndex = 8;
-            this.labelServerPort.Text = "32123";
             // 
             // Form1
             // 

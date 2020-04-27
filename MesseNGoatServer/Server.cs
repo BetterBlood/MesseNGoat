@@ -121,10 +121,13 @@ namespace MesseNGoatServer
 
                     int i = 0;
 
-                    string id = "";
+                    string messageOrigin = "";
                     string message = "";
                     string destination = "";
                     bool identificationOk = false;
+
+                    string users = File.ReadAllText(Form1.PATH_USERS); // récupération du fichier utilisateurs
+                    string[] usersSplit = users.Split('/');
 
                     while ((i = _stream.Read(_data, 0, _data.Length)) != 0)
                     {
@@ -132,25 +135,116 @@ namespace MesseNGoatServer
 
                         string[] messageSplit = _message.Split('/');
 
-                        id = messageSplit[0];
+                        messageOrigin = messageSplit[0];
                         destination = messageSplit[1]; // mettre en place un système d'adresse intern permettant de savoir à qui est adressé le message
+                        string ipDestination = "";
                         message = messageSplit[2]; // TODO : prendre le reste du tableau mais je sais plus comment faire
+
+                        if (Convert.ToInt32(destination) == 0)
+                        {
+                            ipDestination = _iPRunning;
+                        }
+                        else if (usersSplit[Convert.ToInt32(destination) - 1].Split('=')[3].Equals("online"))
+                        {
+                            ipDestination = usersSplit[Convert.ToInt32(destination) - 1].Split('=')[4];
+                        }
 
                         if (!identificationOk) // si l'identité de l'envoyeur n'as pas encore été vérifié
                         {
-                            if (destination.Equals(_iPRunning)) // si le server est le destinataire du message
+                            if (ipDestination.Equals(_iPRunning)) // si le server est le destinataire du message
                             {
-                                if (true && true) // TOTO : ici on vérifie que le pseudo correspond bien a qqn et que le mdp est correct :(mdp = messageSplit[3])
-                                {
-                                    identificationOk = true;
-                                    _message = "goodID";
-                                    Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, id + " register as : " + message);
+                                string reason = messageSplit[4]; // vérifier si c'est le bon indice
 
-                                }
-                                else // TODO : faire le cas ou la vérification à échoué
+                                Console.WriteLine("debug ?");
+
+                                if (reason.Equals("newUser"))
                                 {
-                                    _message = "badID";
-                                    Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, id + " trying to register as : " + message);
+                                    string pseudo = messageSplit[2];
+                                    string mdp = messageSplit[3];
+                                    // on vérifie que le pseudo n'est pas déjà dans la liste d'utilisateur
+                                    // s'il n'y est pas on l'y inscrit avec son mot de passe
+                                    // sinon on envoie un message d'erreur
+                                    
+                                    bool newUser = true;
+                                    string listUsers = ""; 
+
+                                    foreach (string user in usersSplit)
+                                    {
+                                        string[] infoUser = user.Split('=');
+
+                                        listUsers += "/" + infoUser[0];
+
+                                        if (infoUser[0].Equals(pseudo))
+                                        {
+                                            newUser = false;
+                                            break;
+                                        }
+                                    }
+
+                                    if (newUser)
+                                    {
+                                        _message = "goodID" + listUsers;
+                                        File.WriteAllText(Form1.PATH_USERS, users + "/" + pseudo + "=" + mdp); // TODO ne pas oublier le cryptage des infos !
+                                        Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connecting...", a_textBox, messageOrigin + " new User register as : " + pseudo);
+                                    }
+                                    else
+                                    {
+                                        _message = "badID/";
+                                    }
+                                }
+                                else if (reason.Equals("connection"))
+                                {
+                                    // on vérifie que le pseudo est dans la liste d'utilisateur
+                                    // on vérifie que le mdp correspond (ptetre avec une méthode => plus modilable si on change de syseme d'encryption)
+                                    // si c'est bon on connect !
+
+                                    string pseudo = messageSplit[2];
+                                    string mdp = messageSplit[3];
+
+                                    bool canConnect = false;
+                                    string listUsers = "";
+                                    int j = 0;
+
+                                    foreach (string user in usersSplit)
+                                    {
+                                        string[] infoUser = user.Split('=');
+
+                                        listUsers += "/" + infoUser[0];
+
+                                        if (infoUser[0].Equals(pseudo))
+                                        {
+                                            if (infoUser[1].Equals(mdp))
+                                            {
+                                                canConnect = true;
+                                                infoUser[3] = "online";
+                                                infoUser[4] = messageOrigin;
+                                                usersSplit[j] = infoUser[0] + "=" + infoUser[1] + "=" + infoUser[2] + "=" + infoUser[3] + "=" + infoUser[4];
+                                            }
+                                        }
+                                        j++; // normal qu'il n'y est pas de break, c'est pour construire la liste d'utilisateur (listUsers)
+                                    }
+
+                                    if (canConnect)
+                                    {
+                                        users = "";
+
+                                        foreach(string user in usersSplit)
+                                        {
+                                            users += user + "/";
+                                        }
+                                        users.Remove(users.Length - 1);
+
+                                        File.WriteAllText(Form1.PATH_USERS, users);
+
+                                        identificationOk = true;
+                                        _message = "goodID" + listUsers;
+                                        Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, messageOrigin + " register as : " + pseudo);
+                                    }
+                                    else
+                                    {
+                                        _message = "badID/";
+                                        Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, messageOrigin + " trying to register as : " + pseudo);
+                                    }
                                 }
                             }
 
@@ -158,18 +252,31 @@ namespace MesseNGoatServer
 
                             _stream.Write(msg, 0, msg.Length);
 
-                            Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, "Resended To [" + id + "] : " + _message);
+                            Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, "Resended To [" + messageOrigin + "] : " + _message);
                         }
-                        else if (destination.Equals(_iPRunning)) // TODO : l'endroit où est géré la déconnection d'une personne (le false pour l'instant c'est que le serveur et la seul ip possible il faudra l'enlever après)
+                        else if (ipDestination.Equals(_iPRunning)) // TODO : l'endroit où est géré la déconnection d'une personne (le false pour l'instant c'est que le serveur et la seul ip possible il faudra l'enlever après)
                         {
                             if (message.Equals("requestToLogOut"))
                             {
                                 identificationOk = false;
-                                Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, id + " logged Out !");
+
+                                users = "";
+
+                                foreach(string user in usersSplit)
+                                {
+                                    if (user.Split('=')[4].Equals(messageOrigin))
+                                    {
+                                        user.Split('=')[3] = "offline";
+                                    }
+                                    users += user + "/";
+                                }
+                                users.Remove(users.Length - 1);
+
+                                Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, messageOrigin + " logged Out !");
                             }
                             else
                             {
-                                Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, "Received From [" + id + "] : " + message);
+                                Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, "Received From [" + messageOrigin + "] : " + message);
 
                                 //_message = _message.ToUpper();
 
@@ -179,12 +286,13 @@ namespace MesseNGoatServer
 
                                 _stream.Write(msg, 0, msg.Length);
 
-                                Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, "Resended To [" + id + "] : " + _message);
+                                Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, "Resended To [" + messageOrigin + "] : " + _message);
                             }
                         }
                         else
                         {
-                            Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, "Received From [" + id + "] : " + message);
+                            // TODO : trouver la personne a qui envoyer le message reçu !!!!!
+                            Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, "Received From [" + messageOrigin + "] : " + message);
 
                             //_message = _message.ToUpper();
 
@@ -194,7 +302,7 @@ namespace MesseNGoatServer
 
                             _stream.Write(msg, 0, msg.Length);
 
-                            Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, "Resended To [" + id + "] : " + _message);
+                            Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, "Resended To [" + messageOrigin + "] : " + _message);
                         }
                     }
 

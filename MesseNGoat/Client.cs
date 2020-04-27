@@ -37,11 +37,13 @@ namespace MesseNGoat
             _iPRunning = _iPAppli[FindIPV4()].ToString();
         }
 
-        public void SendMessage(string a_messageToSend)
+        public void SendMessage(string a_messageToSend, int contactID = 0)
         {
+            // si contactId = 0 alors c'est une demande au serveur //
+
             //TODO : voir pour appeler la fonction d'encodage
-            string destination = _serveurIP;
-            _message = _iPRunning + "/" + destination + "/" + a_messageToSend; // TODO : voir si c'est utile de stoquer le message
+            //string destination = _serveurIP; // TODO : trouver une manière d'obtenir la personne que l'on veut contacter
+            _message = _iPRunning + "/" + contactID + "/" + a_messageToSend; // TODO : voir si c'est utile de stoquer le message
             _data = Encoding.ASCII.GetBytes(_message);
             _stream.Write(_data, 0, _data.Length);
         }
