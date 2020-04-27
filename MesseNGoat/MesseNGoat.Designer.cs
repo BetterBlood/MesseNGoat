@@ -47,9 +47,13 @@
             this.userConnexionButton = new System.Windows.Forms.Button();
             this.newUserButton = new System.Windows.Forms.Button();
             this.ChatBox = new System.Windows.Forms.Panel();
+            this.label8 = new System.Windows.Forms.Label();
+            this.destinationTextBox = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.destinationPossibility = new System.Windows.Forms.RichTextBox();
             this.logOutButton = new System.Windows.Forms.Button();
             this.richTextBoxConversation = new System.Windows.Forms.RichTextBox();
-            this.labelretourServeur = new System.Windows.Forms.Label();
+            this.affichagePseudo = new System.Windows.Forms.Label();
             this.messageAEnvoyer = new System.Windows.Forms.TextBox();
             this.buttonForSending = new System.Windows.Forms.Button();
             this.Connexion = new System.Windows.Forms.Panel();
@@ -87,7 +91,8 @@
             this.userMdpCreationBox.Location = new System.Drawing.Point(158, 146);
             this.userMdpCreationBox.Name = "userMdpCreationBox";
             this.userMdpCreationBox.Size = new System.Drawing.Size(100, 20);
-            this.userMdpCreationBox.TabIndex = 9;
+            this.userMdpCreationBox.TabIndex = 1;
+            this.userMdpCreationBox.UseSystemPasswordChar = true;
             // 
             // mdpPower
             // 
@@ -103,7 +108,7 @@
             this.returnToUserConnexion.Location = new System.Drawing.Point(83, 19);
             this.returnToUserConnexion.Name = "returnToUserConnexion";
             this.returnToUserConnexion.Size = new System.Drawing.Size(114, 23);
-            this.returnToUserConnexion.TabIndex = 7;
+            this.returnToUserConnexion.TabIndex = 4;
             this.returnToUserConnexion.Text = "page de connexion";
             this.returnToUserConnexion.UseVisualStyleBackColor = true;
             this.returnToUserConnexion.Click += new System.EventHandler(this.returnToUserConnexion_Click);
@@ -114,7 +119,7 @@
             this.conditionsUtilisation.Location = new System.Drawing.Point(40, 223);
             this.conditionsUtilisation.Name = "conditionsUtilisation";
             this.conditionsUtilisation.Size = new System.Drawing.Size(231, 17);
-            this.conditionsUtilisation.TabIndex = 6;
+            this.conditionsUtilisation.TabIndex = 2;
             this.conditionsUtilisation.TabStop = true;
             this.conditionsUtilisation.Text = "J\'ai lu et accepté les conditions d\'utilisations";
             this.conditionsUtilisation.UseVisualStyleBackColor = true;
@@ -124,16 +129,17 @@
             this.accountCreationButton.Location = new System.Drawing.Point(103, 279);
             this.accountCreationButton.Name = "accountCreationButton";
             this.accountCreationButton.Size = new System.Drawing.Size(75, 23);
-            this.accountCreationButton.TabIndex = 5;
+            this.accountCreationButton.TabIndex = 3;
             this.accountCreationButton.Text = "s\'enregistrer";
             this.accountCreationButton.UseVisualStyleBackColor = true;
+            this.accountCreationButton.Click += new System.EventHandler(this.accountCreationButton_Click);
             // 
             // userNameCreationbox
             // 
             this.userNameCreationbox.Location = new System.Drawing.Point(158, 85);
             this.userNameCreationbox.Name = "userNameCreationbox";
             this.userNameCreationbox.Size = new System.Drawing.Size(100, 20);
-            this.userNameCreationbox.TabIndex = 2;
+            this.userNameCreationbox.TabIndex = 0;
             // 
             // label6
             // 
@@ -173,7 +179,8 @@
             this.userMdpTextBox.Location = new System.Drawing.Point(235, 99);
             this.userMdpTextBox.Name = "userMdpTextBox";
             this.userMdpTextBox.Size = new System.Drawing.Size(100, 20);
-            this.userMdpTextBox.TabIndex = 9;
+            this.userMdpTextBox.TabIndex = 5;
+            this.userMdpTextBox.UseSystemPasswordChar = true;
             // 
             // disconnectFromServerButton
             // 
@@ -224,7 +231,7 @@
             this.userConnexionButton.Location = new System.Drawing.Point(410, 61);
             this.userConnexionButton.Name = "userConnexionButton";
             this.userConnexionButton.Size = new System.Drawing.Size(95, 61);
-            this.userConnexionButton.TabIndex = 1;
+            this.userConnexionButton.TabIndex = 6;
             this.userConnexionButton.Text = "connexion";
             this.userConnexionButton.UseVisualStyleBackColor = true;
             this.userConnexionButton.Click += new System.EventHandler(this.userConnexionButton_Click);
@@ -234,16 +241,20 @@
             this.newUserButton.Location = new System.Drawing.Point(250, 138);
             this.newUserButton.Name = "newUserButton";
             this.newUserButton.Size = new System.Drawing.Size(75, 23);
-            this.newUserButton.TabIndex = 0;
+            this.newUserButton.TabIndex = 7;
             this.newUserButton.Text = "new User ?";
             this.newUserButton.UseVisualStyleBackColor = true;
             this.newUserButton.Click += new System.EventHandler(this.newUserButton_Click);
             // 
             // ChatBox
             // 
+            this.ChatBox.Controls.Add(this.label8);
+            this.ChatBox.Controls.Add(this.destinationTextBox);
+            this.ChatBox.Controls.Add(this.label7);
+            this.ChatBox.Controls.Add(this.destinationPossibility);
             this.ChatBox.Controls.Add(this.logOutButton);
             this.ChatBox.Controls.Add(this.richTextBoxConversation);
-            this.ChatBox.Controls.Add(this.labelretourServeur);
+            this.ChatBox.Controls.Add(this.affichagePseudo);
             this.ChatBox.Controls.Add(this.messageAEnvoyer);
             this.ChatBox.Controls.Add(this.buttonForSending);
             this.ChatBox.Location = new System.Drawing.Point(7, 219);
@@ -251,12 +262,46 @@
             this.ChatBox.Size = new System.Drawing.Size(727, 274);
             this.ChatBox.TabIndex = 2;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(557, 66);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(125, 13);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "destinataires connectés :";
+            // 
+            // destinationTextBox
+            // 
+            this.destinationTextBox.Location = new System.Drawing.Point(169, 175);
+            this.destinationTextBox.Name = "destinationTextBox";
+            this.destinationTextBox.Size = new System.Drawing.Size(100, 20);
+            this.destinationTextBox.TabIndex = 0;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(78, 178);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(70, 13);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "destinataire : ";
+            // 
+            // destinationPossibility
+            // 
+            this.destinationPossibility.Location = new System.Drawing.Point(557, 88);
+            this.destinationPossibility.Name = "destinationPossibility";
+            this.destinationPossibility.ReadOnly = true;
+            this.destinationPossibility.Size = new System.Drawing.Size(152, 152);
+            this.destinationPossibility.TabIndex = 5;
+            this.destinationPossibility.Text = "";
+            // 
             // logOutButton
             // 
             this.logOutButton.Location = new System.Drawing.Point(590, 19);
             this.logOutButton.Name = "logOutButton";
             this.logOutButton.Size = new System.Drawing.Size(119, 23);
-            this.logOutButton.TabIndex = 4;
+            this.logOutButton.TabIndex = 3;
             this.logOutButton.Text = "Se déconnecter";
             this.logOutButton.UseVisualStyleBackColor = true;
             this.logOutButton.Click += new System.EventHandler(this.logOutButton_Click);
@@ -265,32 +310,33 @@
             // 
             this.richTextBoxConversation.Location = new System.Drawing.Point(81, 66);
             this.richTextBoxConversation.Name = "richTextBoxConversation";
+            this.richTextBoxConversation.ReadOnly = true;
             this.richTextBoxConversation.Size = new System.Drawing.Size(419, 96);
             this.richTextBoxConversation.TabIndex = 3;
             this.richTextBoxConversation.Text = "";
             // 
-            // labelretourServeur
+            // affichagePseudo
             // 
-            this.labelretourServeur.AutoSize = true;
-            this.labelretourServeur.Location = new System.Drawing.Point(78, 227);
-            this.labelretourServeur.Name = "labelretourServeur";
-            this.labelretourServeur.Size = new System.Drawing.Size(35, 13);
-            this.labelretourServeur.TabIndex = 2;
-            this.labelretourServeur.Text = "label1";
+            this.affichagePseudo.AutoSize = true;
+            this.affichagePseudo.Location = new System.Drawing.Point(78, 41);
+            this.affichagePseudo.Name = "affichagePseudo";
+            this.affichagePseudo.Size = new System.Drawing.Size(35, 13);
+            this.affichagePseudo.TabIndex = 2;
+            this.affichagePseudo.Text = "label1";
             // 
             // messageAEnvoyer
             // 
-            this.messageAEnvoyer.Location = new System.Drawing.Point(81, 168);
+            this.messageAEnvoyer.Location = new System.Drawing.Point(81, 204);
             this.messageAEnvoyer.Name = "messageAEnvoyer";
             this.messageAEnvoyer.Size = new System.Drawing.Size(338, 20);
             this.messageAEnvoyer.TabIndex = 1;
             // 
             // buttonForSending
             // 
-            this.buttonForSending.Location = new System.Drawing.Point(425, 165);
+            this.buttonForSending.Location = new System.Drawing.Point(425, 204);
             this.buttonForSending.Name = "buttonForSending";
-            this.buttonForSending.Size = new System.Drawing.Size(75, 23);
-            this.buttonForSending.TabIndex = 0;
+            this.buttonForSending.Size = new System.Drawing.Size(75, 20);
+            this.buttonForSending.TabIndex = 2;
             this.buttonForSending.Text = "Envoyer";
             this.buttonForSending.UseVisualStyleBackColor = true;
             this.buttonForSending.Click += new System.EventHandler(this.buttonForSending_Click);
@@ -421,7 +467,7 @@
         private System.Windows.Forms.Button connexionToServeurButton;
         private System.Windows.Forms.TextBox messageAEnvoyer;
         private System.Windows.Forms.Button buttonForSending;
-        private System.Windows.Forms.Label labelretourServeur;
+        private System.Windows.Forms.Label affichagePseudo;
         private System.Windows.Forms.RichTextBox richTextBoxConversation;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox userPseudoTestBox;
@@ -443,6 +489,10 @@
         private System.Windows.Forms.Button quickConnexionToServeurButton;
         private System.Windows.Forms.Label portServerDefaultLabel;
         private System.Windows.Forms.Label ipServeurDefaultLabel;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox destinationTextBox;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.RichTextBox destinationPossibility;
     }
 }
 
