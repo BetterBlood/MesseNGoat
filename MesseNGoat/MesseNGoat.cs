@@ -10,6 +10,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Media;
 
+
 namespace MesseNGoat
 {
     public partial class MesseNGoat : Form
@@ -183,7 +184,7 @@ namespace MesseNGoat
 
         private void textBox4_TextChanged(object sender, EventArgs e)
         {
-            // TODO : je crois que c'est pour tester si on peu masquer le mot de passe quand il est tapé pour ne pas l'afficher
+            // TODO : je crois que c'est pour tester si on peu masquer le mot de passe quand il est tapé pour ne pas l'afficher (c'est géré ailleurs)
         }
 
         private void userConnexionButton_Click(object sender, EventArgs e)
@@ -207,6 +208,7 @@ namespace MesseNGoat
 
             if (accuseRecepSplit[0].Equals("goodID"))
             {
+                // TODO : trouver un moyen pour transmettre la clé public du Client, et ptetre que le serveur envoie en réponse la liste des utilisateurs (leur clé public, leur id et pseudo)
                 _pseudo = userPseudoTestBox.Text;
                 affichagePseudo.Text = _pseudo;
 
@@ -242,7 +244,7 @@ namespace MesseNGoat
 
         private void disconnectFromServerButton_Click(object sender, EventArgs e)
         {
-            // TODO : gérer les exceptions, ptetre mettre un message d'erreur etc...
+            // TODO : gérer les exceptions, ptetre mettre un message d'erreur etc... et surtout réellement déconnecter le stream du serveur
 
             UserConnexion.Hide();
 
@@ -254,7 +256,7 @@ namespace MesseNGoat
 
         private void logOutButton_Click(object sender, EventArgs e)
         {
-            // TODO : gérer les exceptions, ptetre mettre un message d'erreur etc...
+            // TODO : gérer les exceptions, ptetre mettre un message d'erreur etc... et surtout réellement déconnecter du serveur l'utilisateur
 
             string accuseRecep = "";
 
@@ -324,7 +326,7 @@ namespace MesseNGoat
 
                     if (!userNameCreationbox.Text.Contains("/") && !userMdpCreationBox.Text.Contains("/"))
                     {
-                        _client.SendMessage(userNameCreationbox.Text + "/" + userMdpCreationBox.Text + "/newUser"); // TODO : ne pas oublié de crypter les infos !!!!
+                        _client.SendMessage(userNameCreationbox.Text + "/" + userMdpCreationBox.Text + "/newUser"); // TODO : ne pas oublié de crypter les infos !!!! + de donner la clé public ?
                     }
                     else
                     {
@@ -341,7 +343,7 @@ namespace MesseNGoat
 
             string[] accuseRecepSplit = accuseRecep.Split('/');
 
-            if (accuseRecepSplit[0].Equals("goodID")) // récupérer la liste des utilisateurs
+            if (accuseRecepSplit[0].Equals("goodID")) // récupérer la liste des utilisateurs et si on les envoie depuis le serveur il faut la stringxml(clépublic)
             {
                 SaveLogin.Hide();
 

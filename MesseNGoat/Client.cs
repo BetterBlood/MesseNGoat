@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
 using System.IO;
+using MesseNGoatCrypto;
 
 namespace MesseNGoat
 {
-    class Client
+    public class Client
     {
         IPAddress[] _iPAppli;
         private string _iPRunning;
@@ -21,6 +22,11 @@ namespace MesseNGoat
         TcpClient _tCPClient;
         Stream _stream;
         byte[] _data;
+
+        Crypto _crypto;
+        List<int> _iDs;
+        List<string> _contactPublicKeys;
+        
 
         public Client(string a_serveurIP, int a_port)
         {
@@ -35,13 +41,17 @@ namespace MesseNGoat
             
             _iPAppli = Dns.GetHostAddresses(Dns.GetHostName()); // récupère les adresses ip de la machine sur laquel est lancé l'application client
             _iPRunning = _iPAppli[FindIPV4()].ToString();
+
+            _crypto = new Crypto();
+            _contactPublicKeys = new List<string>();
+            _iDs = new List<int>();
         }
 
         public void SendMessage(string a_messageToSend, int contactID = 0)
         {
             // si contactId = 0 alors c'est une demande au serveur //
 
-            //TODO : voir pour appeler la fonction d'encodage
+            //TODO : voir pour appeler la fonction d'encodage _crypto.Encrypt(a_messageToSend, FindKeyContact(contactID))
             //string destination = _serveurIP; // TODO : trouver une manière d'obtenir la personne que l'on veut contacter
             _message = _iPRunning + "/" + contactID + "/" + a_messageToSend; // TODO : voir si c'est utile de stoquer le message
             _data = Encoding.ASCII.GetBytes(_message);

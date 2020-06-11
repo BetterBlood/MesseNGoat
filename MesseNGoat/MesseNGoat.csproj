@@ -93,5 +93,11 @@
   <ItemGroup>
     <None Include="Resources\1280x800_goat-with-glasses.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MesseNGoatCrypto\MesseNGoatCrypto.csproj">
+      <Project>{17f480bc-9c6c-4b53-97b5-d8789a145712}</Project>
+      <Name>MesseNGoatCrypto</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
