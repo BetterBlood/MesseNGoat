@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
 using System.Media;
+using MesseNGoatCrypto;
 
 
 namespace MesseNGoat
@@ -21,6 +22,8 @@ namespace MesseNGoat
         string _pseudo;
         string _users;
 
+        Crypto _crypto;
+
         public MesseNGoat()
         {
             InitializeComponent();
@@ -32,6 +35,7 @@ namespace MesseNGoat
             frm2 = new test2(this);
             _pseudo = "";
             _users = "";
+            _crypto = new Crypto(); // normalement seulement utilisé pour hash
         }
 
         private void MesseNGoat_Load(object sender, EventArgs e)
@@ -161,7 +165,7 @@ namespace MesseNGoat
                     destinationIndice = 0; // on reset à 0 car l'utilisateur n'a pas été trouvé
                 }
 
-                _client.SendMessage(messageAEnvoyer.Text, destinationIndice);
+                _client.SendMessage(messageAEnvoyer.Text, destinationIndice, true); // true : encryption du message
                 accuseRecep = _client.TestStreamReception() + "\n";
             }
             catch (Exception exception)
@@ -196,8 +200,10 @@ namespace MesseNGoat
 
             try
             {
-                _client.SendMessage(userPseudoTestBox.Text + "/" + userMdpTextBox.Text + "/connection"); // TODO : ne pas oublié de crypter les infos !!!!
-                accuseRecep = _client.TestStreamReception() + "\n";
+                _client.SendMessage(userPseudoTestBox.Text + "/" + _crypto.Hash(userMdpTextBox.Text) + "/connection/" + _client.GetRSAXML()); // TODO : ne pas oublié de crypter les infos !!!!
+                //accuseRecep = _client.TestStreamReception() + "\n";
+                _crypto = new Crypto(_client.GetRSAXML());
+                accuseRecep = _client.TestStreamReception();
             }
             catch (Exception exception)
             {
@@ -212,17 +218,8 @@ namespace MesseNGoat
                 _pseudo = userPseudoTestBox.Text;
                 affichagePseudo.Text = _pseudo;
 
-                _users = "";
-                bool pop = true;
-
-                foreach (string user in accuseRecepSplit)
-                {
-                    if (!pop)
-                    {
-                        _users += user + "\n";
-                    }
-                    pop = false;
-                }
+                _users = accuseRecepSplit[1];
+                _client.SetPublicKeys(accuseRecepSplit[2]);
                 
                 destinationPossibility.Text = "" + _users;
 
@@ -326,7 +323,7 @@ namespace MesseNGoat
 
                     if (!userNameCreationbox.Text.Contains("/") && !userMdpCreationBox.Text.Contains("/"))
                     {
-                        _client.SendMessage(userNameCreationbox.Text + "/" + userMdpCreationBox.Text + "/newUser"); // TODO : ne pas oublié de crypter les infos !!!! + de donner la clé public ?
+                        _client.SendMessage(userNameCreationbox.Text + "/" + _crypto.Hash(userMdpCreationBox.Text) + "/newUser" + "/" + _client.GetRSAXML()); // TODO : ne pas oublié de crypter les infos !!!! + de donner la clé public ?
                     }
                     else
                     {

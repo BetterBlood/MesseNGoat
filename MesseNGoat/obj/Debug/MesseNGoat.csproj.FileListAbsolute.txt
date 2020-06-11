@@ -1,7 +1,6 @@
 F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoat\bin\Debug\MesseNGoat.exe.config
 F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoat\bin\Debug\MesseNGoat.exe
 F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoat\bin\Debug\MesseNGoat.pdb
-F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoat\obj\Debug\MesseNGoat.csprojAssemblyReference.cache
 F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoat\obj\Debug\MesseNGoat.MesseNGoat.resources
 F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoat\obj\Debug\MesseNGoat.Properties.Resources.resources
 F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoat\obj\Debug\MesseNGoat.csproj.GenerateResource.cache
@@ -30,3 +29,7 @@ H:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\Mess
 H:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoat\obj\Debug\MesseNGoat.csproj.CoreCompileInputs.cache
 H:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoat\obj\Debug\MesseNGoat.exe
 H:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoat\obj\Debug\MesseNGoat.pdb
+F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoat\bin\Debug\MesseNGoatCrypto.exe
+F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoat\bin\Debug\MesseNGoatCrypto.pdb
+F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoat\bin\Debug\MesseNGoatCrypto.exe.config
+F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoat\obj\Debug\MesseNGoat.csprojResolveAssemblyReference.cache
