@@ -8,6 +8,7 @@ using System.Net;
 using System.IO;
 using System.Windows.Forms;
 using System.Drawing;
+using MesseNGoatCrypto;
 
 namespace MesseNGoatServer
 {
@@ -23,6 +24,8 @@ namespace MesseNGoatServer
         private CheckBox checkBox1;
         byte[] _data;
 
+        Crypto _crypto;
+
         public Server(int a_port)
         {
             // TODO : gestion des erreurs
@@ -37,6 +40,7 @@ namespace MesseNGoatServer
             //CreateHandle();
             InitByte();
             InitializeComponent();
+            _crypto = new Crypto();
         }
 
         public void InitByte()
@@ -120,7 +124,7 @@ namespace MesseNGoatServer
                     
                     TcpClient tCPClient = _tCPListener.AcceptTcpClient();
 
-                    Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, "un nouvel utilisateur c'est connecté");
+                    Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, "un nouvel utilisateur s'est connecté");
                     
                     _message = null;
 
@@ -139,11 +143,12 @@ namespace MesseNGoatServer
                     while ((i = _stream.Read(_data, 0, _data.Length)) != 0)
                     {
                         _message = Encoding.ASCII.GetString(_data, 0, i);
-
+                        
                         string[] messageSplit = _message.Split('/');
-
+                        
                         messageOrigin = messageSplit[0];
                         destination = messageSplit[1]; // mettre en place un système d'adresse intern permettant de savoir à qui est adressé le message
+                        
                         string ipDestination = "";
                         message = messageSplit[2]; // TODO : prendre le reste du tableau mais je sais plus comment faire
 
@@ -191,7 +196,7 @@ namespace MesseNGoatServer
                                     if (newUser)
                                     {
                                         _message = "goodID" + listUsers;
-                                        File.WriteAllText(Form1.PATH_USERS, users + "/" + pseudo + "=" + mdp); // TODO ne pas oublier le cryptage des infos !
+                                        File.WriteAllText(Form1.PATH_USERS, users + "/" + pseudo + "=" + mdp + "=" + (usersSplit.Length + 1) + "=offline=" + messageOrigin + "=" + messageSplit[5]);
                                         Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connecting...", a_textBox, messageOrigin + " new User register as : " + pseudo);
                                     }
                                     else
@@ -202,21 +207,25 @@ namespace MesseNGoatServer
                                 else if (reason.Equals("connection"))
                                 {
                                     // on vérifie que le pseudo est dans la liste d'utilisateur
-                                    // on vérifie que le mdp correspond (ptetre avec une méthode => plus modilable si on change de syseme d'encryption)
+                                    // on vérifie que le mdp correspond (ptetre avec une méthode => plus modifable si on change de syseme d'encryption)
                                     // si c'est bon on connect !
 
                                     string pseudo = messageSplit[2];
                                     string mdp = messageSplit[3];
+                                    string publicKey = messageSplit[5];
+                                    _crypto = new Crypto(publicKey);
 
                                     bool canConnect = false;
                                     string listUsers = "";
+                                    string listPublicKeys = "";
                                     int j = 0;
 
                                     foreach (string user in usersSplit)
                                     {
                                         string[] infoUser = user.Split('=');
 
-                                        listUsers += "/" + infoUser[0];
+                                        listUsers += "%" + infoUser[0];
+                                        listPublicKeys += "%" + infoUser[5];
 
                                         if (infoUser[0].Equals(pseudo))
                                         {
@@ -225,10 +234,10 @@ namespace MesseNGoatServer
                                                 canConnect = true;
                                                 infoUser[3] = "online";
                                                 infoUser[4] = messageOrigin;
-                                                usersSplit[j] = infoUser[0] + "=" + infoUser[1] + "=" + infoUser[2] + "=" + infoUser[3] + "=" + infoUser[4];
+                                                usersSplit[j] = infoUser[0] + "=" + infoUser[1] + "=" + infoUser[2] + "=" + infoUser[3] + "=" + infoUser[4] + "=" + infoUser[5];
                                             }
                                         }
-                                        j++; // normal qu'il n'y est pas de break, c'est pour construire la liste d'utilisateur (listUsers)
+                                        j++; // normal qu'il n'y est pas de break, c'est pour construire la liste d'utilisateur (listUsers) et la liste des clés
                                     }
 
                                     if (canConnect)
@@ -244,7 +253,7 @@ namespace MesseNGoatServer
                                         File.WriteAllText(Form1.PATH_USERS, users);
 
                                         identificationOk = true;
-                                        _message = "goodID" + listUsers;
+                                        _message = "goodID/" + listUsers + "/" + listPublicKeys; // TODO : voir pour envoyer les clé public de tout les utilisateurs + crypter les infos pour l'envoyer
                                         Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, messageOrigin + " register as : " + pseudo);
                                     }
                                     else
@@ -254,8 +263,8 @@ namespace MesseNGoatServer
                                     }
                                 }
                             }
-
-                            byte[] msg = Encoding.ASCII.GetBytes(_message);
+                            
+                            byte[] msg = Encoding.ASCII.GetBytes(_crypto.Encrypt(_message, _crypto.GetPublicKey()));
 
                             _stream.Write(msg, 0, msg.Length);
 
@@ -296,7 +305,7 @@ namespace MesseNGoatServer
                                 Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, "Resended To [" + messageOrigin + "] : " + _message);
                             }
                         }
-                        else
+                        else // normalement un message normal qui a un destinataire
                         {
                             // TODO : trouver la personne a qui envoyer le message reçu !!!!!
                             Invoke(new Action<Form, Label, string, RichTextBox, string>(UpdateForm), a_form, a_label, "Connected", a_textBox, "Received From [" + messageOrigin + "] : " + message);
@@ -304,6 +313,8 @@ namespace MesseNGoatServer
                             //_message = _message.ToUpper();
 
                             _message = "message received by server";
+
+                            // TODO : crypter ici
 
                             byte[] msg = Encoding.ASCII.GetBytes(_message);
 

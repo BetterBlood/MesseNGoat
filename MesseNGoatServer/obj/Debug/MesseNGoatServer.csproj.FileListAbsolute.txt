@@ -1,7 +1,6 @@
 F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\bin\Debug\MesseNGoatServer.exe.config
 F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\bin\Debug\MesseNGoatServer.exe
 F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\bin\Debug\MesseNGoatServer.pdb
-F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.csprojAssemblyReference.cache
 F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.Form1.resources
 F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.Properties.Resources.resources
 F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.csproj.GenerateResource.cache
@@ -30,3 +29,8 @@ H:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\Mess
 H:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.csproj.CoreCompileInputs.cache
 H:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.exe
 H:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.pdb
+F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\bin\Debug\MesseNGoatCrypto.exe
+F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\bin\Debug\MesseNGoatCrypto.pdb
+F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\bin\Debug\MesseNGoatCrypto.exe.config
+F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.Server.resources
+F:\ETML\02 - 2ème semestre\02 - Sécurité Mveng\024-P_DeoSecu\02 - Projet\MesseNGoat\MesseNGoatServer\obj\Debug\MesseNGoatServer.csprojResolveAssemblyReference.cache

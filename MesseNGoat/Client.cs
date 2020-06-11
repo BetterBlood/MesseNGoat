@@ -47,13 +47,23 @@ namespace MesseNGoat
             _iDs = new List<int>();
         }
 
-        public void SendMessage(string a_messageToSend, int contactID = 0)
+        public void SendMessage(string a_messageToSend, int a_contactID = 0, bool a_wannaEncrypte = false)
         {
             // si contactId = 0 alors c'est une demande au serveur //
 
             //TODO : voir pour appeler la fonction d'encodage _crypto.Encrypt(a_messageToSend, FindKeyContact(contactID))
             //string destination = _serveurIP; // TODO : trouver une manière d'obtenir la personne que l'on veut contacter
-            _message = _iPRunning + "/" + contactID + "/" + a_messageToSend; // TODO : voir si c'est utile de stoquer le message
+
+            string a_messageToSendEncrypted = a_messageToSend;
+
+            if (a_wannaEncrypte)
+            {
+                _crypto = new Crypto(_contactPublicKeys[a_contactID]);
+                a_messageToSendEncrypted = _crypto.Encrypt(a_messageToSend, _crypto.GetPublicKey());
+            }
+
+            _message = _iPRunning + "/" + a_contactID + "/" + a_messageToSendEncrypted; // TODO : voir si c'est utile de stoquer le message
+
             _data = Encoding.ASCII.GetBytes(_message);
             _stream.Write(_data, 0, _data.Length);
         }
@@ -86,7 +96,16 @@ namespace MesseNGoat
             _data = new byte[1500];
 
             int size = _stream.Read(_data, 0, _data.Length);
-            return Encoding.ASCII.GetString(_data, 0, size);
+            return _crypto.Decrypt(_data);
+            //return Encoding.ASCII.GetString(_data, 0, size);
+        }
+
+        public byte[] TestStreamReceptionByte()
+        {
+            _data = new byte[1500];
+
+            int size = _stream.Read(_data, 0, _data.Length);
+            return _data;
         }
 
         public void Close()
@@ -104,5 +123,25 @@ namespace MesseNGoat
         {
             return _serveurIP;
         }
+
+        public string GetRSAXML()
+        {
+            return _crypto.GetRSAXML();
+        }
+
+        public void SetPublicKeys(string a_PublicKeysList)
+        {
+            string[] tmpKeys = a_PublicKeysList.Split('%');
+
+            _contactPublicKeys = new List<string>(); // réinitialisation de la liste
+
+            foreach (string key in tmpKeys)
+            {
+                _contactPublicKeys.Add(key);
+            }
+
+        }
+
+
     }
 }

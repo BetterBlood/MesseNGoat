@@ -69,7 +69,7 @@ namespace MesseNGoatCrypto
             return _publicKey;
         }
 
-        public string GetRSA()
+        public string GetRSAXML()
         {
             return _rSACrypto.ToXmlString(false);
         }
