@@ -30,6 +30,7 @@ namespace MesseNGoatServer
             
             _iPServer = Dns.GetHostAddresses(Dns.GetHostName()); // récupère les adresses ip de la machine sur laquel est lancé le serveur
 
+            // TODO : tester FindIPV4() avant de le donner en index !!! (si jamais aucune adresse n'est trouvée la méthode renvoie -1)
             _iPRunning = _iPServer[FindIPV4()].ToString();
             _tCPListener = new TcpListener(_iPServer[FindIPV4()], _port);
 
@@ -51,13 +52,19 @@ namespace MesseNGoatServer
 
             foreach (IPAddress ip in _iPServer)
             {
-                string tmp = ip.ToString();
+                //string tmp = ip.ToString();
 
-                if (tmp.Split('.').Length == 4)
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
                     find = true;
                     break;
                 }
+
+                //if (tmp.Split('.').Length == 4)
+                //{
+                //    find = true;
+                //    break;
+                //}
                 index++;
             }
             return find ? index : -1;

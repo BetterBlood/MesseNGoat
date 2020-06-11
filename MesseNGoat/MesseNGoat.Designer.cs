@@ -360,7 +360,7 @@
             // 
             // quickConnexionToServeurButton
             // 
-            this.quickConnexionToServeurButton.Location = new System.Drawing.Point(262, 134);
+            this.quickConnexionToServeurButton.Location = new System.Drawing.Point(281, 23);
             this.quickConnexionToServeurButton.Name = "quickConnexionToServeurButton";
             this.quickConnexionToServeurButton.Size = new System.Drawing.Size(102, 30);
             this.quickConnexionToServeurButton.TabIndex = 7;
@@ -371,7 +371,7 @@
             // portServerDefaultLabel
             // 
             this.portServerDefaultLabel.AutoSize = true;
-            this.portServerDefaultLabel.Location = new System.Drawing.Point(297, 99);
+            this.portServerDefaultLabel.Location = new System.Drawing.Point(187, 50);
             this.portServerDefaultLabel.Name = "portServerDefaultLabel";
             this.portServerDefaultLabel.Size = new System.Drawing.Size(37, 13);
             this.portServerDefaultLabel.TabIndex = 6;
@@ -380,7 +380,7 @@
             // ipServeurDefaultLabel
             // 
             this.ipServeurDefaultLabel.AutoSize = true;
-            this.ipServeurDefaultLabel.Location = new System.Drawing.Point(281, 32);
+            this.ipServeurDefaultLabel.Location = new System.Drawing.Point(187, 18);
             this.ipServeurDefaultLabel.Name = "ipServeurDefaultLabel";
             this.ipServeurDefaultLabel.Size = new System.Drawing.Size(70, 13);
             this.ipServeurDefaultLabel.TabIndex = 5;
@@ -388,9 +388,9 @@
             // 
             // connexionToServeurButton
             // 
-            this.connexionToServeurButton.Location = new System.Drawing.Point(106, 138);
+            this.connexionToServeurButton.Location = new System.Drawing.Point(296, 150);
             this.connexionToServeurButton.Name = "connexionToServeurButton";
-            this.connexionToServeurButton.Size = new System.Drawing.Size(75, 23);
+            this.connexionToServeurButton.Size = new System.Drawing.Size(87, 30);
             this.connexionToServeurButton.TabIndex = 4;
             this.connexionToServeurButton.Text = "connexion";
             this.connexionToServeurButton.UseVisualStyleBackColor = true;
@@ -398,14 +398,14 @@
             // 
             // textBoxPort
             // 
-            this.textBoxPort.Location = new System.Drawing.Point(106, 96);
+            this.textBoxPort.Location = new System.Drawing.Point(81, 47);
             this.textBoxPort.Name = "textBoxPort";
             this.textBoxPort.Size = new System.Drawing.Size(100, 20);
             this.textBoxPort.TabIndex = 3;
             // 
             // textBoxIP
             // 
-            this.textBoxIP.Location = new System.Drawing.Point(106, 29);
+            this.textBoxIP.Location = new System.Drawing.Point(81, 15);
             this.textBoxIP.Name = "textBoxIP";
             this.textBoxIP.Size = new System.Drawing.Size(100, 20);
             this.textBoxIP.TabIndex = 2;
@@ -413,7 +413,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(43, 99);
+            this.label2.Location = new System.Drawing.Point(19, 50);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(26, 13);
             this.label2.TabIndex = 1;
@@ -423,7 +423,7 @@
             // IPServeur
             // 
             this.IPServeur.AutoSize = true;
-            this.IPServeur.Location = new System.Drawing.Point(31, 32);
+            this.IPServeur.Location = new System.Drawing.Point(19, 18);
             this.IPServeur.Name = "IPServeur";
             this.IPServeur.Size = new System.Drawing.Size(57, 13);
             this.IPServeur.TabIndex = 0;

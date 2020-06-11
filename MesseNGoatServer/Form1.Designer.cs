@@ -137,6 +137,7 @@
             this.Controls.Add(this.ServConv);
             this.Name = "Form1";
             this.Text = "Server MesseNGoat";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ServConv.ResumeLayout(false);
             this.ServConv.PerformLayout();
             this.ResumeLayout(false);
